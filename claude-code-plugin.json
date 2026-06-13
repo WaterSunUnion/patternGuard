@@ -1,0 +1,38 @@
+{
+  "name": "blast-radius-skills",
+  "version": "1.0.0",
+  "description": "Three coordinated skills for AI agent-operated codebases: planner designs blast-radius-aware file structure, executor makes changes safely across bounded context, reviewer verifies correctness before committing.",
+  "author": {
+    "name": "Calvin",
+    "email": "",
+    "url": ""
+  },
+  "license": "MIT",
+  "keywords": [
+    "blast-radius",
+    "agentic",
+    "codebase",
+    "planner",
+    "executor",
+    "reviewer",
+    "index",
+    "subagent"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Blast Radius Skills",
+    "shortDescription": "Plan, execute, and review agent code changes with bounded blast radius",
+    "longDescription": "Three coordinated skills for codebases operated by AI agents and subagents. blast-radius-planner designs context-safe file structure and outputs CODEBASE_INDEX.yaml and IMPACT_MAP.yaml. blast-radius-executor makes changes safely with four self-selected modes: Bootstrap, Solo, Orchestrator, and Subagent. blast-radius-reviewer verifies correctness and consistency after changes, producing approved, changes-needed, or escalate verdicts. Works on both greenfield and existing projects.",
+    "developerName": "Calvin",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use blast-radius-planner to design the structure for a new feature",
+      "Use blast-radius-executor to apply a change across all affected routes",
+      "Use blast-radius-reviewer to verify changes before committing"
+    ]
+  }
+}

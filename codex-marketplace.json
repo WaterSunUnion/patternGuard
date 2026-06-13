@@ -1,0 +1,20 @@
+{
+  "name": "blast-radius-local",
+  "interface": {
+    "displayName": "Blast Radius Skills (Local)"
+  },
+  "plugins": [
+    {
+      "name": "blast-radius-skills",
+      "source": {
+        "source": "local",
+        "path": "./blast-radius-skills"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

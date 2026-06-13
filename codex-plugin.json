@@ -1,0 +1,39 @@
+{
+  "name": "blast-radius-skills",
+  "version": "1.0.0",
+  "description": "Three coordinated skills for AI agent-operated codebases: planner designs blast-radius-aware file structure, executor makes changes safely across bounded context, reviewer verifies correctness before committing.",
+  "author": {
+    "name": "Calvin",
+    "email": "",
+    "url": ""
+  },
+  "license": "MIT",
+  "keywords": [
+    "blast-radius",
+    "agentic",
+    "codebase",
+    "planner",
+    "executor",
+    "reviewer",
+    "index",
+    "subagent"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Blast Radius Skills",
+    "shortDescription": "Plan, execute, and review agent code changes with bounded blast radius",
+    "longDescription": "Three coordinated skills for codebases operated by AI agents and subagents.\n\nblast-radius-planner — Designs context-safe file structure. Classifies logic (route-specific, cross-cutting, utility), chooses between template generation (R1), index contract (R2), and earned abstraction (R3). Outputs CODEBASE_INDEX.yaml, IMPACT_MAP.yaml, and a structured handoff note. Works on greenfield and existing projects.\n\nblast-radius-executor — Executes code changes with full blast radius awareness. Self-selects between four modes: Bootstrap (existing project, no index), Solo (simple task, no subagents), Orchestrator (large blast radius, spawns subagents with task envelopes), Subagent (received an envelope, executes one file). Only the orchestrator writes to index files.\n\nblast-radius-reviewer — Reviews changes after execution. Verifies correctness, completeness, and sibling consistency. Never edits code — only reads and produces verdicts: approved, changes-needed, or escalate. Self-selects between Solo, Orchestrator, and Subagent modes.",
+    "developerName": "Calvin",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use blast-radius-planner to design the structure for a new payment validation feature",
+      "Use blast-radius-executor to apply the fraud threshold change across all routes",
+      "Use blast-radius-reviewer to verify the executor's changes before committing"
+    ],
+    "brandColor": "#FF6B35"
+  }
+}
