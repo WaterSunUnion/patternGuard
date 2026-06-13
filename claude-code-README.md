@@ -1,26 +1,26 @@
-# Blast Radius Skills — Claude Code Plugin
+# PatternGuard — Claude Code Plugin
 
-Three coordinated skills for codebases operated by AI agents.
+PatternGuard keeps AI-agent changes from diverging across repeated code patterns: plan the blast radius, execute within bounds, and review consistency before committing.
 
 ## Skills
 
 | Skill | Invoke when... |
 |---|---|
-| `blast-radius-planner` | Designing structure, adding routes, planning cross-cutting logic, receiving R3 signals |
-| `blast-radius-executor` | Executing code changes, fixing bugs, being assigned a task by an orchestrator |
-| `blast-radius-reviewer` | Reviewing changes after execution, verifying correctness before committing |
+| `patternguard-planner` | Designing structure, adding routes, planning cross-cutting logic, receiving R3 signals |
+| `patternguard-executor` | Executing code changes, fixing bugs, being assigned a task by an orchestrator |
+| `patternguard-reviewer` | Reviewing changes after execution, verifying correctness before committing |
 
 ## Install — Marketplace
 
 ```bash
-claude plugin install blast-radius-skills
+claude plugin install patternguard
 ```
 
 ## Install — Local dev / test without installing
 
 ```bash
 # Run Claude Code pointed directly at the plugin folder
-claude --plugin-dir ./blast-radius-skills
+claude --plugin-dir ./patternguard
 ```
 
 Changes to SKILL.md files take effect immediately in the current session.
@@ -31,7 +31,7 @@ Changes to other plugin components (hooks, agents, .mcp.json) require `/reload-p
 ```bash
 # Copy plugin into your repo
 mkdir -p ./plugins
-cp -R blast-radius-skills ./plugins/blast-radius-skills
+cp -R patternguard ./plugins/patternguard
 
 # Tell Claude Code to load it
 # Add to your project's claude plugin config or drop in .claude/plugins/
@@ -41,33 +41,33 @@ cp -R blast-radius-skills ./plugins/blast-radius-skills
 
 ```bash
 mkdir -p ~/.claude/plugins
-cp -R blast-radius-skills ~/.claude/plugins/blast-radius-skills
+cp -R patternguard ~/.claude/plugins/patternguard
 ```
 
 ## Typical workflow
 
 ```
-blast-radius-planner
+patternguard-planner
   → reads/upgrades existing index (CODEBASE_INDEX.yaml)
   → classifies logic, chooses resolution (R1/R2/R3)
   → outputs index files + handoff note
       ↓
-blast-radius-executor (orchestrator mode)
+patternguard-executor (orchestrator mode)
   → reads handoff note, picks mode
   → builds task envelopes, spawns subagents
       ↓
-blast-radius-executor (subagent) × N
+patternguard-executor (subagent) × N
   → executes one file per subagent
   → reports status + R3 signals
       ↓
-blast-radius-reviewer (orchestrator mode)
+patternguard-reviewer (orchestrator mode)
   → generates diffs, builds review envelopes
   → spawns reviewer subagents
       ↓
-blast-radius-reviewer (subagent) × N
+patternguard-reviewer (subagent) × N
   → approved / changes-needed / escalate
       ↓
-blast-radius-executor (orchestrator)
+patternguard-executor (orchestrator)
   → all approved → updates index → done
   → changes-needed → returns to executor
   → escalate → notifies planner
@@ -78,5 +78,6 @@ blast-radius-executor (orchestrator)
 | File | Purpose |
 |---|---|
 | `CODEBASE_INDEX.yaml` | Declares which files share logic (patterns) |
-| `IMPACT_MAP.yaml` | Declares blast radius per change type |
+| `IMPACT_MAP.yaml` | Declares scope per change type |
+| `patternguard-handoff.yaml` | Carries task scope, affected files, and retry state between skills |
 | `generator/templates/*.tmpl` | Single source of truth for cross-cutting logic |

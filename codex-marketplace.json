@@ -1,14 +1,14 @@
 {
-  "name": "blast-radius-local",
+  "name": "patternguard-local",
   "interface": {
-    "displayName": "Blast Radius Skills (Local)"
+    "displayName": "PatternGuard (Local)"
   },
   "plugins": [
     {
-      "name": "blast-radius-skills",
+      "name": "patternguard",
       "source": {
         "source": "local",
-        "path": "./blast-radius-skills"
+        "path": "./patternguard"
       },
       "policy": {
         "installation": "AVAILABLE",

@@ -1,14 +1,18 @@
 {
-  "name": "blast-radius-skills",
+  "name": "patternguard",
   "version": "1.0.0",
-  "description": "Three coordinated skills for AI agent-operated codebases: planner designs blast-radius-aware file structure, executor makes changes safely across bounded context, reviewer verifies correctness before committing.",
+  "description": "Guard AI-agent code changes against pattern drift: plan the blast radius, execute within bounds, and review sibling consistency before committing.",
   "author": {
     "name": "Calvin",
-    "email": "",
+    "email": "yiwen.calvin@gmail.com",
     "url": ""
   },
   "license": "MIT",
   "keywords": [
+    "scope",
+    "pattern",
+    "template",
+    "impact-analysis",
     "blast-radius",
     "agentic",
     "codebase",
@@ -20,9 +24,9 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Blast Radius Skills",
-    "shortDescription": "Plan, execute, and review agent code changes with bounded blast radius",
-    "longDescription": "Three coordinated skills for codebases operated by AI agents and subagents. blast-radius-planner designs context-safe file structure and outputs CODEBASE_INDEX.yaml and IMPACT_MAP.yaml. blast-radius-executor makes changes safely with four self-selected modes: Bootstrap, Solo, Orchestrator, and Subagent. blast-radius-reviewer verifies correctness and consistency after changes, producing approved, changes-needed, or escalate verdicts. Works on both greenfield and existing projects.",
+    "displayName": "PatternGuard",
+    "shortDescription": "Guard agent code changes against pattern drift",
+    "longDescription": "Three coordinated skills for codebases operated by AI agents and subagents. patternguard-planner maps every file a change touches and outputs CODEBASE_INDEX.yaml and IMPACT_MAP.yaml. patternguard-executor applies changes safely with four self-selected modes: Bootstrap, Solo, Orchestrator, and Subagent. patternguard-reviewer verifies correctness and sibling consistency after changes, producing approved, changes-needed, or escalate verdicts. Works on both greenfield and existing projects.",
     "developerName": "Calvin",
     "category": "Productivity",
     "capabilities": [
@@ -30,9 +34,9 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Use blast-radius-planner to design the structure for a new feature",
-      "Use blast-radius-executor to apply a change across all affected routes",
-      "Use blast-radius-reviewer to verify changes before committing"
+      "Use patternguard-planner to map the structure for a new feature",
+      "Use patternguard-executor to apply a change across all affected routes",
+      "Use patternguard-reviewer to verify changes before committing"
     ]
   }
 }
