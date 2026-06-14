@@ -1,5 +1,7 @@
 # PatternGuard
 
+_A skill that turns repeated feature logic into a scoped change map for agents to plan, edit, and review safely._
+
 > Guard repeated code patterns by mapping each change's blast radius, applying edits within declared bounds, and verifying sibling consistency before commit.
 
 ---
