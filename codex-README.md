@@ -89,16 +89,20 @@ codex --plugin-dir ./patternguard
 
 ```
 patternguard-planner
-  → reads/upgrades existing index (CODEBASE_INDEX.yaml)
-  → classifies logic, chooses resolution (R1/R2/R3)
-  → outputs index files + handoff note
+  → acquires .patternguard/lock for direct planner runs, or uses executor's lock
+  → reads/upgrades existing index (.patternguard/CODEBASE_INDEX.yaml)
+  → classifies logic, chooses duplicated, template-candidate, or template-backed handling
+  → outputs .patternguard index files + handoff note
       ↓
 patternguard-executor (orchestrator mode)
-  → reads handoff note, picks mode
-  → builds task envelopes, spawns subagents
+  → acquires .patternguard/lock or fails fast if another workflow owns it
+  → reads handoff note and index
+  → checks template-backed, template-candidate, and duplicated patterns
+  → surfaces scoped paths, feature impact, risk, and tests
+  → edits template + regenerates only when generator.command exists, or builds task envelopes for duplicated files
       ↓
-patternguard-executor (subagent) × N
-  → executes one file per subagent
+patternguard-executor (subagent) × N, only for duplicated files
+  → executes one scoped file per subagent
   → reports status + R3 signals
       ↓
 patternguard-reviewer (orchestrator mode)
@@ -118,7 +122,9 @@ patternguard-executor (orchestrator)
 
 | File | Purpose |
 |---|---|
-| `CODEBASE_INDEX.yaml` | Declares which files share logic (patterns) |
-| `IMPACT_MAP.yaml` | Declares scope per change type |
-| `patternguard-handoff.yaml` | Carries task scope, affected files, and retry state between skills |
+| `.patternguard/CODEBASE_INDEX.yaml` | Declares which files share logic and whether patterns are duplicated, candidates, or generator-backed |
+| `.patternguard/changes/index.yaml` | Indexes reusable change-impact categories by name, impact, and detailed impact file path |
+| `.patternguard/changes/<change-type>.yaml` | Declares scope for one change type, affected behavior, risk if wrong, tests, and regeneration source |
+| `.patternguard/patternguard-handoff.yaml` | Carries task scope, affected files, and retry state between skills |
+| `.patternguard/lock` | Fail-fast workflow lock for top-level planner/executor runs |
 | `generator/templates/*.tmpl` | Single source of truth for cross-cutting logic |
